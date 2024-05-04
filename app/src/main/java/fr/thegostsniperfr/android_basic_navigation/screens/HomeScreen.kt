@@ -32,7 +32,7 @@ fun HomeScreen(
    ) {
         Text(
             modifier = Modifier.clickable {
-                navController.navigate(Screen.Hello.route)
+                navController.navigate(Screen.Hello.passNameAndId("The_Gost_sniper", 27000))
             },
 
             text = "Go to Hello screen !",
