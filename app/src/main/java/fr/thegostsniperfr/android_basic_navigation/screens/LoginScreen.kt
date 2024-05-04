@@ -16,7 +16,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import fr.thegostsniperfr.android_basic_navigation.Screen
+import fr.thegostsniperfr.android_basic_navigation.navigation.HOME_ROUTE
+import fr.thegostsniperfr.android_basic_navigation.navigation.Screen
 
 
 @Composable
@@ -32,7 +33,9 @@ fun LoginScreen(
    ) {
         Text(
             modifier = Modifier.clickable {
-                navController.navigate(Screen.Home.route)
+                navController.navigate(HOME_ROUTE) {
+                    popUpTo(HOME_ROUTE) // Allow to not redo navigation when go back
+                }
             },
 
             text = "Login Page",

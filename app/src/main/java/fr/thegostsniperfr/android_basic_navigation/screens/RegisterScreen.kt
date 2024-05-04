@@ -16,12 +16,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import fr.thegostsniperfr.android_basic_navigation.navigation.HOME_ROUTE
 import fr.thegostsniperfr.android_basic_navigation.navigation.Screen
 
 
 @Composable
-fun NewsScreen(
+fun RegisterScreen(
     navController: NavController,
 ) {
    Box(
@@ -33,10 +32,10 @@ fun NewsScreen(
    ) {
         Text(
             modifier = Modifier.clickable {
-                navController.navigate(HOME_ROUTE)
+                navController.navigate(Screen.Home.route)
             },
 
-            text = "News Page",
+            text = "Register Page",
             color = MaterialTheme.colorScheme.primary,
             fontSize = MaterialTheme.typography.bodyLarge.fontSize,
             fontWeight = FontWeight.Bold
@@ -46,8 +45,8 @@ fun NewsScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun NewsScreenPreview() {
-    NewsScreen(
+fun RegisterScreenPreview() {
+    RegisterScreen(
         navController = rememberNavController()
     )
 }
