@@ -23,18 +23,7 @@ class MainActivity : ComponentActivity() {
             navController = rememberNavController()
 
             Android_Basic_Navigation_Theme {
-                Column {
-                    Box(modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = Color.LightGray),
-
-                        Alignment.Center
-                    ) {
-                        Text(text = "Hello World")
-                    }
-
-                    SetupNavGraph(navController = navController)
-                }
+                SetupNavGraph(navController = navController)
             }
         }
     }

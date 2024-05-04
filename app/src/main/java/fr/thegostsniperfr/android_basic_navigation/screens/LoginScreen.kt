@@ -1,5 +1,6 @@
 package fr.thegostsniperfr.android_basic_navigation.screens
 
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -19,13 +20,13 @@ import fr.thegostsniperfr.android_basic_navigation.Screen
 
 
 @Composable
-fun HelloScreen(
+fun LoginScreen(
     navController: NavController,
 ) {
    Box(
        modifier = Modifier
            .fillMaxSize()
-           .background(color = Color.Blue),
+           .background(color = Color.Black),
 
        contentAlignment = Alignment.Center
    ) {
@@ -34,8 +35,8 @@ fun HelloScreen(
                 navController.navigate(Screen.Home.route)
             },
 
-            text = "Go to Home screen !",
-            color = Color.Red,
+            text = "Login Page",
+            color = MaterialTheme.colorScheme.primary,
             fontSize = MaterialTheme.typography.bodyLarge.fontSize,
             fontWeight = FontWeight.Bold
         )
@@ -44,8 +45,8 @@ fun HelloScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun HelloScreenPreview() {
-    HelloScreen(
+fun LoginScreenPreview() {
+    LoginScreen(
         navController = rememberNavController()
     )
 }

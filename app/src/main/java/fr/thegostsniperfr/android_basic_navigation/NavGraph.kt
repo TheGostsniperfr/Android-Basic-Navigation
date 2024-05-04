@@ -4,9 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import fr.thegostsniperfr.android_basic_navigation.screens.HelloScreen
-import fr.thegostsniperfr.android_basic_navigation.screens.HomeScreen
-import fr.thegostsniperfr.android_basic_navigation.screens.IteratorBtnScreen
+import fr.thegostsniperfr.android_basic_navigation.screens.*
 
 
 @Composable
@@ -20,13 +18,13 @@ fun SetupNavGraph(
         ) {
             HomeScreen(navController = navController)
         }
-        composable(route = Screen.Hello.route
+        composable(route = Screen.Login.route
         ) {
-            HelloScreen(navController = navController)
+            LoginScreen(navController = navController)
         }
-        composable(route = Screen.IteratorBtn.route
+        composable(route = Screen.News.route
         ) {
-            IteratorBtnScreen()
+            NewsScreen(navController = navController)
         }
     }
 }

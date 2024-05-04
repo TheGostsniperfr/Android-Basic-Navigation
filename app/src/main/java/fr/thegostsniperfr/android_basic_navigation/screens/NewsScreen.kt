@@ -20,7 +20,7 @@ import fr.thegostsniperfr.android_basic_navigation.Screen
 
 
 @Composable
-fun HomeScreen(
+fun NewsScreen(
     navController: NavController,
 ) {
    Box(
@@ -32,10 +32,10 @@ fun HomeScreen(
    ) {
         Text(
             modifier = Modifier.clickable {
-                navController.navigate(Screen.Login.route)
+                navController.navigate(Screen.Home.route)
             },
 
-            text = "Home Page",
+            text = "News Page",
             color = MaterialTheme.colorScheme.primary,
             fontSize = MaterialTheme.typography.bodyLarge.fontSize,
             fontWeight = FontWeight.Bold
@@ -45,8 +45,8 @@ fun HomeScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun HomeScreenPreview() {
-    HomeScreen(
+fun NewsScreenPreview() {
+    NewsScreen(
         navController = rememberNavController()
     )
 }
