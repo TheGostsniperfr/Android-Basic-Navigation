@@ -14,17 +14,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Android_Basic_Navigation_Theme {
-                val context = LocalContext.current
-                HomeScreen(
-                    onBluetoothStateChange = {
-                        ShowToast(context, "Bluetooth state changed")
-                    }
-                )
+                HomeScreen()
             }
         }
     }
-}
-
-fun ShowToast(context: Context, message: String) {
-    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
