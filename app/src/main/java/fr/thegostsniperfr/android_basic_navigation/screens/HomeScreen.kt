@@ -1,6 +1,8 @@
 package fr.thegostsniperfr.android_basic_navigation.screens
 
 import android.bluetooth.BluetoothAdapter
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import fr.thegostsniperfr.android_basic_navigation.broadcast.SystemBroadcastReceiver
 
