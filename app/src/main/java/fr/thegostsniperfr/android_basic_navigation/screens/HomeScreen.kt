@@ -1,70 +1,49 @@
 package fr.thegostsniperfr.android_basic_navigation.screens
 
-
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
-
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import fr.thegostsniperfr.android_basic_navigation.navigation.AUTHENTICATION_ROUTE
-import fr.thegostsniperfr.android_basic_navigation.navigation.Screen
+import fr.thegostsniperfr.android_basic_navigation.PreferencesManager
 
 
 @Composable
-fun HomeScreen(
-    navController: NavController,
-) {
-   Box(
-       modifier = Modifier
-           .fillMaxSize()
-           .background(color = Color.Black),
+fun HomeScreen() {
+    val context = LocalContext.current
+    val preferencesManager = remember { PreferencesManager(context) }
+    val data = remember { mutableStateOf(preferencesManager.getData("myKey", "")) }
 
-       contentAlignment = Alignment.Center
-   ) {
-       Column (
-           modifier = Modifier
-               .fillMaxSize(),
-           verticalArrangement = Arrangement.Center,
-           horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
 
-       ) {
-           Text(
-               text = "Home Page",
-               color = MaterialTheme.colorScheme.primary,
-               fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-               fontWeight = FontWeight.Bold
-           )
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
 
-           Text(
-               modifier = Modifier
-                   .padding(top = 150.dp)
-                    .clickable {
-                        navController.navigate(AUTHENTICATION_ROUTE)
-                    },
+                value = data.value,
+                onValueChange = {
+                    data.value = it
+                    preferencesManager.saveData("myKey", it)
+                },
 
-               text = "Login / Sign Up",
-               color = MaterialTheme.colorScheme.primary,
-               fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-               fontWeight = FontWeight.Bold
-           )
-       }
-   }
-}
+                placeholder = {
+                    Text(text = "Enter your value to save.")
+                },
 
-@Composable
-@Preview(showBackground = true)
-fun HomeScreenPreview() {
-    HomeScreen(
-        navController = rememberNavController()
-    )
+                singleLine = true,
+            )
+        }
+    }
 }
