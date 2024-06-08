@@ -1,70 +1,98 @@
 package fr.thegostsniperfr.android_basic_navigation.screens
 
-
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
-
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import fr.thegostsniperfr.android_basic_navigation.navigation.AUTHENTICATION_ROUTE
-import fr.thegostsniperfr.android_basic_navigation.navigation.Screen
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import fr.thegostsniperfr.android_basic_navigation.db.UsersModelViewModel
 
 
 @Composable
 fun HomeScreen(
-    navController: NavController,
+    vm: UsersModelViewModel
 ) {
-   Box(
-       modifier = Modifier
-           .fillMaxSize()
-           .background(color = Color.Black),
+    var name by remember { mutableStateOf("") }
+    var surname by remember { mutableStateOf("") }
 
-       contentAlignment = Alignment.Center
-   ) {
-       Column (
-           modifier = Modifier
-               .fillMaxSize(),
-           verticalArrangement = Arrangement.Center,
-           horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = Modifier.fillMaxSize(),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(all = 16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+            ) {
+                TextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Name") },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp)
+                )
 
-       ) {
-           Text(
-               text = "Home Page",
-               color = MaterialTheme.colorScheme.primary,
-               fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-               fontWeight = FontWeight.Bold
-           )
+                TextField(
+                    value = surname,
+                    onValueChange = { surname = it },
+                    label = { Text("Surname") },
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 8.dp)
+                )
+            }
 
-           Text(
-               modifier = Modifier
-                   .padding(top = 150.dp)
-                    .clickable {
-                        navController.navigate(AUTHENTICATION_ROUTE)
-                    },
+            Button(
+                onClick = {
+                    vm.addUser(name, surname)
+                    name = ""
+                    surname = ""
+                },
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+                Text("Add User")
+            }
 
-               text = "Login / Sign Up",
-               color = MaterialTheme.colorScheme.primary,
-               fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-               fontWeight = FontWeight.Bold
-           )
-       }
-   }
+            val usersList by vm.getAllUsers().collectAsState(initial = emptyList())
+
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(usersList) { user ->
+                    UserInfo(user.name, user.surname)
+                }
+            }
+        }
+    }
 }
 
 @Composable
-@Preview(showBackground = true)
-fun HomeScreenPreview() {
-    HomeScreen(
-        navController = rememberNavController()
-    )
+fun UserInfo(name: String, surname: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(text = name)
+        Text(text = surname)
+    }
 }
