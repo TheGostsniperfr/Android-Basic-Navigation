@@ -1,5 +1,6 @@
 package fr.thegostsniperfr.android_basic_navigation.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,16 +11,19 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import fr.thegostsniperfr.android_basic_navigation.db.UsersModelViewModel
+import java.io.Console
 
 
 @Composable
 fun HomeScreen(
     vm: UsersModelViewModel
 ) {
+    val context = LocalContext.current
     var name by remember { mutableStateOf("") }
     var surname by remember { mutableStateOf("") }
 
@@ -59,7 +63,12 @@ fun HomeScreen(
 
             Button(
                 onClick = {
-                    vm.addUser(name, surname)
+                    if(!name.equals("") && !surname.equals("")) {
+                        vm.addUser(name, surname)
+                    } else {
+                        Toast.makeText(context, "Invalid name or surname!", Toast.LENGTH_LONG).show()
+                    }
+
                     name = ""
                     surname = ""
                 },
