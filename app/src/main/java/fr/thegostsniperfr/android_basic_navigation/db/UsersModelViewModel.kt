@@ -14,6 +14,12 @@ class UsersModelViewModel(
         }
     }
 
+    fun deleteUser(user: UsersModel) {
+        viewModelScope.launch{
+            dao.deleteUser(user = user)
+        }
+    }
+
     fun getAllUsers(): Flow<List<UsersModel>> {
         return dao.getAllUsers()
     }
